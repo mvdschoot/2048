@@ -1,23 +1,25 @@
-#pragma once
+#ifndef APPLICATION_HEADER
+#define APPLICATION_HEADER
 
 #include <chrono>
 #include <ctime>
 #include <thread>
 #include <iostream>
 #include <string>
-#include <Windows.h>
 #include <exception>
 
 
 #include "frame_rater.h"
 #include "Board.h"
 #include "Input.h"
+#include "Renderer.h"
 #include "HelperFunctions.h"
+#include "Definitions.h"
 
 class Application
 {
 public:
-	Application() : board(nullptr), windowSize(getConsoleSize()) {};
+	Application() : board(nullptr) {};
 	void run();
 	void gameLoop();
 
@@ -27,9 +29,11 @@ private:
 
 	Board *board;
 	Input input;
+	Renderer renderer;
+
 	void initialise();
 	int getBoardSize();
 	void render();
-	void windowResizeEvent();
 };
 
+#endif

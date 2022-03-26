@@ -8,22 +8,21 @@ void Application::run()
 	for (;;) {
 		gameLoop();
 		fp.sleep();
+		break;
 	}
 }
 
 void Application::gameLoop()
 {
-	windowResizeEvent();
 
-	render();
+	renderer.render(board->getBoard());
 }
 
 
 void Application::initialise()
 {
 	board = new Board(getBoardSize());
-	
-	board->setFramework(windowSize);
+	renderer.initialise(board->getSize(), 150, 50);
 }
 
 int Application::getBoardSize()
@@ -50,26 +49,6 @@ int Application::getBoardSize()
 	return size;
 }
 
-void Application::render()
-{
-	system("CLS");
-	HANDLE handl = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	std::vector<Board::ConsoleCharacter>* to_print = board->getFramework();
-	for (auto it = to_print->begin(); it != to_print->end(); it++) {
-		SetConsoleCursorPosition(handl, it->coordinate);
-		std::cout << (it->character.c_str());
-	}
-}
-
-void Application::windowResizeEvent()
-{
-	COORD sz = getConsoleSize();
-	if (sz.X != windowSize.X || sz.Y != windowSize.Y) {
-		board->setFramework(sz);
-		windowSize = sz;
-	}
-}
 
 
 

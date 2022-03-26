@@ -12,8 +12,5 @@ void Input::getInput()
 
 void Input::handleInput()
 {
-	char c = _getch();
-	switch (c) {
-
-	}
+	return;
 }

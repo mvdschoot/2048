@@ -1,5 +1,5 @@
-#pragma once
-#include <conio.h>
+#ifndef INPUT
+#define INPUT
 
 class Input
 {
@@ -10,3 +10,4 @@ public:
 	void handleInput();
 };
 
+#endif

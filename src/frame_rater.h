@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FRAME_RATER
+#define FRAME_RATER
 
 #include <chrono>
 #include <thread>
@@ -27,3 +28,5 @@ private:
     // the time point we'll add to in every loop
     std::chrono::time_point<std::chrono::steady_clock, decltype(time_between_frames)> tp;
 };
+
+#endif 
