@@ -1,6 +1,7 @@
 #ifndef DEFINITIONS_HEADER
 #define DEFINITIONS_HEADER
 
+#define _DEBUG
 
 #include <string>
 

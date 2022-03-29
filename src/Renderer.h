@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "Definitions.h"
+#include "Designs.h"
 
 class Renderer {
 public:
@@ -26,7 +27,7 @@ public:
 
 	Renderer() {};
 
-	ftxui::ScreenInteractive* initialise(int grid_size);
+	void initialise(int grid_size);
 	static ftxui::Element Render();
 	void Start(ftxui::ScreenInteractive* screen);
 	
@@ -37,6 +38,7 @@ private:
 	void getTileSize(int boardSize);
 	static ftxui::Element make_box(int w, int h);
 	static ftxui::Element make_grid();
+	static ftxui::Element make_window(ftxui::Element gridbox);
 };
 
 #endif

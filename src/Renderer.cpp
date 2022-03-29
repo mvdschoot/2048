@@ -1,3 +1,4 @@
+#include "Designs.h"
 #include "Renderer.h"
 
 int Renderer::padding = 5;
@@ -8,27 +9,18 @@ int Renderer::box_height = 0;
 
 void Renderer::Start(ftxui::ScreenInteractive* screen)
 {
-	ftxui::ScreenInteractive::FitComponent().Loop(ftxui::Component(ftxui::Renderer(Renderer::Render)));
+	ftxui::ScreenInteractive::FitComponent().Loop(ftxui::Component(ftxui::Renderer([&](){return Renderer::Render();})));
 	std::cout << "Failing!" << std::endl;
+	exit(EXIT_FAILURE);
 }
 
-ftxui::ScreenInteractive* Renderer::initialise(int grid_size)
+void Renderer::initialise(int grid_size)
 {
-	grid_size = grid_size;
+	this->grid_size = grid_size;
 	getTileSize(grid_size);
 }
 
-ftxui::Element Renderer::make_box(int w, int h)
-{
-	return ftxui::dbox({ftxui::text("0") |
-						ftxui::bgcolor(ftxui::Color::Cornsilk1) |
-						ftxui::color(ftxui::Color::Black) |
-						ftxui::center}) |
-		   ftxui::size(ftxui::WIDTH, ftxui::EQUAL, w) |
-		   ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, h) |
-		   ftxui::bgcolor(ftxui::Color::DarkBlue) |
-		   ftxui::border;
-}
+
 
 ftxui::Element Renderer::make_grid()
 {
@@ -38,7 +30,7 @@ ftxui::Element Renderer::make_grid()
 		std::vector<ftxui::Element> cols;
 		for (int y = 0; y < grid_size; y++)
 		{
-			cols.push_back(make_box(box_width, box_height));
+			cols.push_back(Designs::GET_BOX_DESIGN("0", box_width, box_height));
 		}
 		rows.push_back(cols);
 	}
@@ -46,9 +38,14 @@ ftxui::Element Renderer::make_grid()
 	return ftxui::gridbox(rows);
 }
 
+ftxui::Element Renderer::make_window(ftxui::Element gridbox) 
+{
+	return Designs::GET_WINDOW_DESIGN(gridbox);
+}
+
 ftxui::Element Renderer::Render()
 {
-	return make_grid();
+	return make_window(make_grid());
 }
 
 void Renderer::getTileSize(int grid_size)

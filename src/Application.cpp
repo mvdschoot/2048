@@ -11,12 +11,16 @@ void Application::run()
 void Application::initialise()
 {
 	board_size = getBoardSize();
-	screen = renderer.initialise(board_size);
+	renderer.initialise(board_size);
 	board = new Board(board_size);
 }
 
 int Application::getBoardSize()
 {
+	#ifdef _DEBUG
+		return 5;
+	#endif
+
 	std::cout << "How big board (2-6): ";
 	char c;
 	std::cin >> c;
