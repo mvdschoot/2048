@@ -10,28 +10,33 @@
 
 #include <iostream>
 #include <vector>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
 
 #include "Definitions.h"
 
 class Renderer {
 public:
+	static int grid_size;
+	static int padding;
+	static int box_width;
+	static int box_height;
+
 	Renderer() {};
 
-	void initialise(int boardSize, int screenWidth, int screenHeight);
-	void render(Node** board);
-
+	ftxui::ScreenInteractive* initialise(int grid_size);
+	static ftxui::Element Render();
+	void Start(ftxui::ScreenInteractive* screen);
+	
 private:
-
-	//ftxui::ScreenInteractive* screen;
-	ftxui::Element grid;
+	static ftxui::Element grid;
 	ftxui::Component container;
 
-	const int padding = 5;
-	int boxWidth;
-	int boxHeight;
-
-	void getTileSize(int boardSize, int w, int h);
-	ftxui::Element make_box(int w, int h);
+	void getTileSize(int boardSize);
+	static ftxui::Element make_box(int w, int h);
+	static ftxui::Element make_grid();
 };
 
 #endif

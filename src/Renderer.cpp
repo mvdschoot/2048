@@ -1,57 +1,74 @@
 #include "Renderer.h"
 
-void Renderer::initialise(int boardSize, int screenWidth, int screenHeight) {
-	auto screen = ftxui::ScreenInteractive::TerminalOutput();
-	
+int Renderer::padding = 5;
+int Renderer::grid_size = 0;
+int Renderer::box_width = 0;
+int Renderer::box_height = 0;
 
-	getTileSize(boardSize, screenWidth, screenHeight);
 
+void Renderer::Start(ftxui::ScreenInteractive* screen)
+{
+	ftxui::ScreenInteractive::FitComponent().Loop(ftxui::Component(ftxui::Renderer(Renderer::Render)));
+	std::cout << "Failing!" << std::endl;
+}
+
+ftxui::ScreenInteractive* Renderer::initialise(int grid_size)
+{
+	grid_size = grid_size;
+	getTileSize(grid_size);
+}
+
+ftxui::Element Renderer::make_box(int w, int h)
+{
+	return ftxui::dbox({ftxui::text("0") |
+						ftxui::bgcolor(ftxui::Color::Cornsilk1) |
+						ftxui::color(ftxui::Color::Black) |
+						ftxui::center}) |
+		   ftxui::size(ftxui::WIDTH, ftxui::EQUAL, w) |
+		   ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, h) |
+		   ftxui::bgcolor(ftxui::Color::DarkBlue) |
+		   ftxui::border;
+}
+
+ftxui::Element Renderer::make_grid()
+{
 	std::vector<ftxui::Elements> rows;
-	for(int x = 0; x < boardSize; x++) {
+	for (int x = 0; x < grid_size; x++)
+	{
 		std::vector<ftxui::Element> cols;
-		for(int y = 0; y < boardSize; y++) {
-			cols.push_back(make_box(boxWidth, boxHeight));
+		for (int y = 0; y < grid_size; y++)
+		{
+			cols.push_back(make_box(box_width, box_height));
 		}
 		rows.push_back(cols);
 	}
 
-	grid = ftxui::gridbox(rows);
-	container = ftxui::Component(ftxui::Renderer([&] {return grid;}));
-	screen.Loop(container);
+	return ftxui::gridbox(rows);
 }
 
-ftxui::Element Renderer::make_box(int w, int h) {
-	return ftxui::dbox({
-		ftxui::text("0") |
-		ftxui::bgcolor(ftxui::Color::Cornsilk1) |
-		ftxui::color(ftxui::Color::Black) |
-		ftxui::center
-	}) |
-	ftxui::size(ftxui::WIDTH, ftxui::EQUAL, w) | 
-	ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, h) |
-	ftxui::bgcolor(ftxui::Color::DarkBlue) |
-	ftxui::border;
+ftxui::Element Renderer::Render()
+{
+	return make_grid();
 }
 
-void Renderer::render(Node** board) {
-	ftxui::Render(screen, ftxui::vbox({
-                   ftxui::text("idkanker"),
-                   ftxui::separator(),
-                   grid
-               }));
-	//screen.Print();
-}
+void Renderer::getTileSize(int grid_size)
+{
+	struct winsize c;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &c);
 
+	short w = c.ws_col;
+	short h = c.ws_row;
 
-void Renderer::getTileSize(int boardSize, int w, int h) {
-	const int whfactor = 2;
-
+	short whfactor = 2;
 	h *= whfactor;
-	if (w < h) {
-		boxWidth = (w - padding) / boardSize;
-		boxHeight = (w - padding) / boardSize / whfactor;
-	} else {
-		boxWidth = (h - (padding / whfactor)) / boardSize;
-		boxHeight = (h - (padding / whfactor)) / whfactor / boardSize;
+	if (w < h)
+	{
+		box_width = (w - padding) / grid_size;
+		box_height = (w - padding) / grid_size / whfactor;
+	}
+	else
+	{
+		box_width = (h - (padding / whfactor)) / grid_size;
+		box_height = (h - (padding / whfactor)) / whfactor / grid_size;
 	}
 }

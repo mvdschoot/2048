@@ -4,25 +4,15 @@
 void Application::run()
 {
 	initialise();
-	frame_rater<1> fp;
-	for (;;) {
-		gameLoop();
-		fp.sleep();
-		break;
-	}
-}
-
-void Application::gameLoop()
-{
-
-	renderer.render(board->getBoard());
+	renderer.Start(screen);
 }
 
 
 void Application::initialise()
 {
-	board = new Board(getBoardSize());
-	renderer.initialise(board->getSize(), 150, 50);
+	board_size = getBoardSize();
+	screen = renderer.initialise(board_size);
+	board = new Board(board_size);
 }
 
 int Application::getBoardSize()
@@ -35,20 +25,17 @@ int Application::getBoardSize()
 	try {
 		size = std::stoi(std::string(1, c));
 		if (size < 2 || size > 6) {
-			system("CLS");
 			std::cout << "Bad size" << std::endl;
 			size = getBoardSize();
 		}
 	}
 	catch (std::exception& e) {
-		system("CLS");
 		std::cout << "Must be a number" << std::endl;
 		size = getBoardSize();
 	}
 
 	return size;
 }
-
 
 
 

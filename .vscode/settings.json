@@ -60,5 +60,6 @@
 		"typeinfo": "cpp",
 		"variant": "cpp",
 		"semaphore": "cpp"
-	}
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
 }

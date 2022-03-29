@@ -3,7 +3,6 @@
 
 #include <chrono>
 #include <ctime>
-#include <thread>
 #include <iostream>
 #include <string>
 #include <exception>
@@ -16,24 +15,28 @@
 #include "HelperFunctions.h"
 #include "Definitions.h"
 
+#include "ftxui/screen/screen.hpp"
+
 class Application
 {
 public:
 	Application() : board(nullptr) {};
+	~Application() {
+		free(screen);
+		free(board);
+	};
 	void run();
-	void gameLoop();
 
 private:
-	const float FPS = 60.0f;
-	COORD windowSize;
+	int board_size = -1;
 
 	Board *board;
 	Input input;
 	Renderer renderer;
+	ftxui::ScreenInteractive* screen;
 
 	void initialise();
 	int getBoardSize();
-	void render();
 };
 
 #endif
