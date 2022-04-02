@@ -3,6 +3,14 @@
 
 #define _DEBUG
 
+#include "ftxui/component/event.hpp"
+typedef (bool) Input_callback(ftxui::Event event);
+
+
+
+
+
+
 #include <string>
 
 typedef struct COORD {

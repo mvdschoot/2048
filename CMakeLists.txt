@@ -22,7 +22,7 @@ endif()
 include_directories("src")
 #include_directories("libs/Graphics")
 
-add_executable(2048 src/Main.cpp src/Input.cpp src/HelperFunctions.cpp src/Board.cpp src/Renderer.cpp src/Application.cpp)
+add_executable(2048 src/Main.cpp src/Input.cpp src/HelperFunctions.cpp src/Board.cpp src/GameHandler.cpp src/Application.cpp)
 
 #target_link_libraries(2048 PUBLIC Graphics)
 

@@ -9,9 +9,7 @@
 
 
 #include "frame_rater.h"
-#include "Board.h"
-#include "Input.h"
-#include "Renderer.h"
+#include "GameHandler.h"
 #include "HelperFunctions.h"
 #include "Definitions.h"
 
@@ -30,10 +28,7 @@ public:
 private:
 	int board_size = -1;
 
-	Board *board;
-	Input input;
-	Renderer renderer;
-	ftxui::ScreenInteractive* screen;
+	GameHandler renderer;
 
 	void initialise();
 	int getBoardSize();

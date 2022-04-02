@@ -1,28 +1,32 @@
 #include "Designs.h"
-#include "Renderer.h"
+#include "GameHandler.h"
 
-int Renderer::padding = 5;
-int Renderer::grid_size = 0;
-int Renderer::box_width = 0;
-int Renderer::box_height = 0;
+int GameHandler::padding = 5;
+int GameHandler::grid_size = 0;
+int GameHandler::box_width = 0;
+int GameHandler::box_height = 0;
 
 
-void Renderer::Start(ftxui::ScreenInteractive* screen)
+void GameHandler::Start()
 {
-	ftxui::ScreenInteractive::FitComponent().Loop(ftxui::Component(ftxui::Renderer([&](){return Renderer::Render();})));
-	std::cout << "Failing!" << std::endl;
+	ftxui::Component component = ftxui::Component(ftxui::Renderer([&](){return GameHandler::Render();}));
+	
+	component = ftxui::CatchEvent(component, input_callback);
+	
+	ftxui::ScreenInteractive::FitComponent().Loop(component);
+	std::cout << "Exiting..." << std::endl;
 	exit(EXIT_FAILURE);
 }
 
-void Renderer::initialise(int grid_size)
+void GameHandler::initialise(int grid_size)
 {
 	this->grid_size = grid_size;
-	getTileSize(grid_size);
+	board = new Board(grid_size);
+	get_tile_size(grid_size);
 }
 
 
-
-ftxui::Element Renderer::make_grid()
+ftxui::Element GameHandler::make_grid()
 {
 	std::vector<ftxui::Elements> rows;
 	for (int x = 0; x < grid_size; x++)
@@ -38,17 +42,17 @@ ftxui::Element Renderer::make_grid()
 	return ftxui::gridbox(rows);
 }
 
-ftxui::Element Renderer::make_window(ftxui::Element gridbox) 
+ftxui::Element GameHandler::make_window(ftxui::Element gridbox) 
 {
 	return Designs::GET_WINDOW_DESIGN(gridbox);
 }
 
-ftxui::Element Renderer::Render()
+ftxui::Element GameHandler::Render()
 {
 	return make_window(make_grid());
 }
 
-void Renderer::getTileSize(int grid_size)
+void GameHandler::get_tile_size(int grid_size)
 {
 	struct winsize c;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &c);
