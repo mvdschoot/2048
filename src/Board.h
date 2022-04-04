@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
+#include <string.h>
 #include <random>
 #include <time.h>
 
@@ -16,21 +17,23 @@ class Board
 public:
 
 	Board(int size) { init(size); }
-	void moveRight();
-	void moveLeft();
-	void moveUp();
-	void moveDown();
+	void init(int size);
+
+	static bool input_callback(ftxui::Event evt); 
+	static void moveRight();
+	static void moveLeft();
+	static void moveUp();
+	static void moveDown();
 
 	// Getters
 	int getSize() { return size; };
-	Node **getBoard() { return board; };
+	static Node **update_and_return();
 
-private:
-	Node **board;
-	int size;
-	const int padding = 5;
+	static Node **board;
+	static int size;
 
-	void init(int size);
+	static bool has_event_happened;
+	static ftxui::Event* event;
 };
 
 #endif

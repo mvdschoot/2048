@@ -30,12 +30,12 @@ public:
 
 	void initialise(int grid_size);
 	static ftxui::Element Render();
-	void Start(ftxui::ScreenInteractive* screen);
+	void Start();
 
-	static bool input_callback(ftxui::Event event)
+	static bool input_callback(ftxui::Event event);
 	
 private:
-	Board *board;
+	Board *board_class;
 	static ftxui::Element grid;
 	ftxui::Component container;
 

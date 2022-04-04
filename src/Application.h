@@ -18,11 +18,8 @@
 class Application
 {
 public:
-	Application() : board(nullptr) {};
-	~Application() {
-		free(screen);
-		free(board);
-	};
+	Application(){};
+	~Application() {};
 	void run();
 
 private:

@@ -1,5 +1,5 @@
-#include "Designs.h"
 #include "GameHandler.h"
+#include "Designs.h"
 
 int GameHandler::padding = 5;
 int GameHandler::grid_size = 0;
@@ -11,30 +11,38 @@ void GameHandler::Start()
 {
 	ftxui::Component component = ftxui::Component(ftxui::Renderer([&](){return GameHandler::Render();}));
 	
-	component = ftxui::CatchEvent(component, input_callback);
+	component = ftxui::CatchEvent(component, Board::input_callback);
 	
 	ftxui::ScreenInteractive::FitComponent().Loop(component);
 	std::cout << "Exiting..." << std::endl;
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 void GameHandler::initialise(int grid_size)
 {
 	this->grid_size = grid_size;
-	board = new Board(grid_size);
+	board_class = new Board(grid_size);
 	get_tile_size(grid_size);
 }
 
 
 ftxui::Element GameHandler::make_grid()
 {
+	Node** board = Board::update_and_return();
 	std::vector<ftxui::Elements> rows;
 	for (int x = 0; x < grid_size; x++)
 	{
 		std::vector<ftxui::Element> cols;
 		for (int y = 0; y < grid_size; y++)
 		{
-			cols.push_back(Designs::GET_BOX_DESIGN("0", box_width, box_height));
+			cols.push_back(
+				Designs::GET_BOX_DESIGN(
+					std::to_string(board[x][y].val), 
+					box_width, 
+					box_height,
+					ftxui::Color::Black
+				)
+			);
 		}
 		rows.push_back(cols);
 	}
