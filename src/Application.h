@@ -8,9 +8,7 @@
 #include <exception>
 
 
-#include "frame_rater.h"
 #include "GameHandler.h"
-#include "HelperFunctions.h"
 #include "Definitions.h"
 
 #include "ftxui/screen/screen.hpp"

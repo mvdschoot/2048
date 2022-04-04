@@ -121,14 +121,14 @@ Node** Board::update_and_return()
 	if (has_event_happened == false)
 		return board;
 	
-	std::string a = event->input();
-	if (event->input().compare(std::string(ftxui::Event::ArrowDown)) == 0)
+	const std::string& a = event->input();
+	if (event->input() == ftxui::Event::ArrowDown)
 		moveDown();
-	else if(*event == ftxui::Event::ArrowLeft)
+	else if(event->input() == ftxui::Event::ArrowLeft)
 		moveLeft();
-	else if(*event == ftxui::Event::ArrowUp)
+	else if(event->input() == ftxui::Event::ArrowUp)
 		moveUp();
-	else if (*event == ftxui::Event::ArrowRight)
+	else if (event->input() == ftxui::Event::ArrowRight)
 		moveRight();
 	
 	has_event_happened = false;

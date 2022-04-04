@@ -9,7 +9,6 @@
 #include <random>
 #include <time.h>
 
-#include "HelperFunctions.h"
 #include "Definitions.h"
 
 class Board
