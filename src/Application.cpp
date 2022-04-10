@@ -17,9 +17,11 @@ void Application::initialise()
 int Application::getBoardSize()
 {
 
-	std::cout << "How big board (2-6): ";
-	char c;
-	std::cin >> c;
+	// std::cout << "How big board (2-6): ";
+	// char c;
+	// std::cin >> c;
+
+	char c = '4';
 
 	int size = 0;
 	try {

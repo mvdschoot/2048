@@ -6,9 +6,12 @@
 #include "ftxui/component/event.hpp"
 typedef bool Input_callback(ftxui::Event event);
 
-
-
-
+enum inputs{
+	ARROW_RIGHT,
+	ARROW_LEFT,
+	ARROW_DOWN,
+	ARROW_UP
+};
 
 
 #include <string>

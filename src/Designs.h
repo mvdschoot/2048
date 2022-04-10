@@ -4,17 +4,19 @@
 #include "ftxui/dom/elements.hpp"
 
 #include <string>
+#include <map>
+#include "ftxui/screen/color.hpp"
 
 class Designs {
 public:
-	static ftxui::Element GET_BOX_DESIGN(std::string text, int w, int h, ftxui::Color color) {
-		return ftxui::dbox({ftxui::text(text) |
-			ftxui::bgcolor(ftxui::Color::Cornsilk1) |
-			ftxui::color(color) |
+	static ftxui::Element GET_BOX_DESIGN(int value, int w, int h) {
+		return ftxui::dbox({ftxui::text(std::to_string(value)) |
+			ftxui::bgcolor(color_mapping.at(value)) |
+			ftxui::color(ftxui::Color::Black) |
 			ftxui::center}) |
 		ftxui::size(ftxui::WIDTH, ftxui::EQUAL, w) |
 		ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, h) |
-		ftxui::bgcolor(ftxui::Color::DarkBlue) |
+		ftxui::bgcolor(color_mapping.at(value)) |
 		ftxui::border;
 	}	
 
@@ -23,6 +25,8 @@ public:
 			gridbox
 		);										
 	}
-};							
+
+	static std::map<int, ftxui::Color> color_mapping;
+};	
 
 #endif

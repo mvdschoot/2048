@@ -37,10 +37,9 @@ ftxui::Element GameHandler::make_grid()
 		{
 			cols.push_back(
 				Designs::GET_BOX_DESIGN(
-					std::to_string(board[x][y].val), 
+					board[x][y].val, 
 					box_width, 
-					box_height,
-					ftxui::Color::Black
+					box_height
 				)
 			);
 		}

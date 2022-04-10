@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <cstdlib>
-#include <vector>
+#include <queue>
 #include <string>
 #include <string.h>
 #include <random>
@@ -27,12 +27,12 @@ public:
 	// Getters
 	int getSize() { return size; };
 	static Node **update_and_return();
+	static void add_tile();
 
 	static Node **board;
 	static int size;
 
-	static bool has_event_happened;
-	static ftxui::Event* event;
+	static std::queue<ftxui::Event> events;
 };
 
 #endif
