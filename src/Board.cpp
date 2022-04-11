@@ -21,6 +21,10 @@ void Board::add_tile() {
 		}
 	}
 
+	if(picks.empty()) {
+		exit(EXIT_SUCCESS);
+	}
+
 	std::vector<COORD>::iterator it = picks.begin();
     std::random_device rd;
     std::mt19937 gen(rd());
