@@ -16,7 +16,6 @@ public:
 			ftxui::center}) |
 		ftxui::size(ftxui::WIDTH, ftxui::EQUAL, w) |
 		ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, h) |
-		//ftxui::bgcolor(color_mapping.at(value)) |
 		ftxui::borderHeavy |
 		ftxui::color(color_mapping.at(value));
 	}	

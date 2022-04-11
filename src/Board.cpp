@@ -28,10 +28,14 @@ void Board::add_tile() {
 	std::vector<COORD>::iterator it = picks.begin();
     std::random_device rd;
     std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dis(0, std::distance(it, picks.end()) - 1);
+
+	std::uniform_int_distribution<> dis(0, picks.size() - 1);
     std::advance(it, dis(gen));
+
+	dis = std::uniform_int_distribution<>(0, 1);
+	int num = dis(gen) * 2 + 2; 
 	
-	board[(*it).X][(*it).Y] = 2;
+	board[(*it).X][(*it).Y] = num;
 }
 
 Node** Board::update_and_return()

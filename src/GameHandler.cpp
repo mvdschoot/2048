@@ -10,10 +10,9 @@ int GameHandler::box_height = 0;
 void GameHandler::Start()
 {
 	ftxui::Component component = ftxui::Component(ftxui::Renderer([&](){return GameHandler::Render();}));
-	
 	component = ftxui::CatchEvent(component, Board::input_callback);
-	
 	ftxui::ScreenInteractive::FitComponent().Loop(component);
+	
 	std::cout << "Exiting..." << std::endl;
 	exit(EXIT_SUCCESS);
 }
