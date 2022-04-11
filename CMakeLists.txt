@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.4)
 
 project(2048)
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 
 ## Include FTXUI
 include(FetchContent)
@@ -18,15 +18,12 @@ if(NOT ftxui_POPULATED)
   add_subdirectory(${ftxui_SOURCE_DIR} ${ftxui_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
+######################
 
 include_directories("src")
-#include_directories("libs/Graphics")
-
 add_executable(2048 src/Main.cpp src/Board.cpp src/Designs.cpp src/GameHandler.cpp src/Application.cpp)
 
-#target_link_libraries(2048 PUBLIC Graphics)
-
-
+# Link FTXUI
 target_link_libraries(2048
   PRIVATE ftxui::screen
   PRIVATE ftxui::dom
